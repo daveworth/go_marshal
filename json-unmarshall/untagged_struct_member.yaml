@@ -1,0 +1,20 @@
+rules:
+    - id: unmarshaling-tag-in-only-some-fields
+      message: >-
+          Type $T1 has fields with json/yml/xml tags on some but not other fields. This field can still be (un)marshaled using its name. To prevent a field from being (un)marshaled, use the - tag.
+      languages: [go]
+      severity: WARNING
+      patterns:
+          - pattern-inside: |
+                type $T1 struct {
+                  ...
+                  $_ $_ `$TAG`
+                  ...
+                }
+          # This regex attempts to remove some false positives such as structs declared inside structs
+          - pattern-regex: >-
+                ^[ \t]+[A-Z]+[a-zA-Z0-9]*[ \t]+[a-zA-Z0-9]+[^{`\n\r]*$
+          - metavariable-regex:
+                metavariable: $TAG
+                regex: >-
+                    .*(json|yaml|xml):"[^,-]
