@@ -1,0 +1,17 @@
+rules:
+  - id: incorrect-ignore-struct-member
+    message: >-
+      Type $T1 has fields incorrect ignore directive in JSON tags. This field can still be (un)marshaled using the name `-` in the JSON body. To prevent a field from being (un)marshaled the json tag should only be `-`.
+    languages: [go]
+    severity: WARNING
+    patterns:
+      - pattern-inside: |
+          type $T1 struct {
+            ...
+            $_ $_ `$TAG`
+            ...
+          }
+      - metavariable-regex:
+          metavariable: $TAG
+          regex: >-
+            .*(json|yaml|xml):"-,[^"]*"
