@@ -1,4 +1,4 @@
-module github.com/daveworth/go-semgrep
+module github.com/daveworth/go_marshal
 
 go 1.24.0
 
