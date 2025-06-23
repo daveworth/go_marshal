@@ -50,14 +50,14 @@ clearly mapped to the tool but were equally ~educational~ shocking.
 
 This is an incredibly shocking example in a few ways: Not only do [the docs](https://pkg.go.dev/encoding/json#Unmarshal)
 *strongly* imply that while field matching is case-insensitive, matching case is
-preferred.
+preferred:
 
 > To unmarshal JSON into a struct, Unmarshal matches incoming object keys to the
 > keys used by Marshal (either the struct field name or its tag), preferring an
 > exact match but also accepting a case-insensitive match.
 
 What's even wilder is how it's not about case-insensitivity, but unicode
-code-point "folding" meaning that "actions" and "aKtionſ" are considered the
+code-point "folding" meaning that "actions" and "aCtionſ" are considered the
 same!!! This was a major "wat?!" moment.
 
 ### Parser Differentials
